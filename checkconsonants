@@ -1,0 +1,48 @@
+
+package com.palindrome;
+import java.util.Scanner;
+
+public class Palindrome {
+
+    public static int countConsonants(String str) {
+        int count = 0;
+        str = str.toLowerCase(); // Convert the string to lowercase for uniform comparison
+
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            if ((ch >= 'a' && ch <= 'z') && !isVowel(ch)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static boolean isVowel(char ch) {
+        return ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u';
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter a string: ");
+        String input = scanner.nextLine();
+        scanner.close();
+
+        int maxLength = 0;
+        String maxConsonantsSubstring = "";
+
+        for (int i = 0; i < input.length(); i++) {
+            for (int j = i + 1; j <= input.length(); j++) {
+                String currentSubstring = input.substring(i, j);
+                int consonantsCount = countConsonants(currentSubstring);
+
+                if (consonantsCount > maxLength) {
+                    maxLength = consonantsCount;
+                    maxConsonantsSubstring = currentSubstring;
+                }
+            }
+        }
+
+        System.out.println("Substring with maximum consonants: " + maxConsonantsSubstring);
+        System.out.println("Number of consonants: " + maxLength);
+    }
+}
